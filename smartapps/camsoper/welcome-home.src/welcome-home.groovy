@@ -17,6 +17,7 @@
 /* Changelog
 
 9/14/2007 - Added a changelog. Deleted a comment.
+9/18/2017 - Updated mySpeaker to speechSysthesis and theDevice to use displayName instead of Label
 
 */
 
@@ -39,7 +40,7 @@ preferences {
         input "doorList", "capability.contactSensor", multiple: true, required: true
     }
     section("Where are we speaking?") {
-        input "mySpeaker", "capability.musicPlayer", required: true
+        input "mySpeaker", "capability.speechSynthesis", required: true
     }
 }
 
@@ -68,11 +69,11 @@ def presenceHandler(evt) {
     def theDevice = evt.device
     def newArrivals = atomicState.newArrivals
     def personsName = ""
-    if(theDevice.label == null || theDevice.label == "") {
+    if(theDevice.displayName == null || theDevice.displayName == "") {
         personsName = theDevice.name
     }
     else {
-        personsName = theDevice.label
+        personsName = theDevice.displayName
     }
 
     log.debug("$personsName is home.")
